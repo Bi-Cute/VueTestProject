@@ -1,3 +1,5 @@
+<!-- @format -->
+
 <template>
     <div class="container flex">
         <!-- 왼쪽 필드 전체 -->
@@ -5,8 +7,8 @@
             <!-- 왼쪽 통계 이름 -->
             <div class="flex justify-between mb-4">
                 <div>
-                    <label for="field-title">통계 이름: </label>
-                    <input type="text" id="field-title" v-model="chartTitle" />
+                    <label for="field-title">통계 이름:</label>
+                    <input type="text" id="field-title" v-model="chartData.title" />
                 </div>
 
                 <button>저장</button>
@@ -22,7 +24,7 @@
                         @dragstart="handleDragStart"
                         @drag="handleDrag"
                         @dragend="handleDragEnd"
-                        class="w-40 border border-collapse p-2 cursor-pointer">
+                        class="w-40 border border-collapse p-2 my-1 cursor-pointer">
                         {{ field }}
                     </div>
                 </div>
@@ -87,7 +89,7 @@
             <div class="p-4">
                 <div class="card">
                     <h5>Linear Chart</h5>
-                    <Chart type="line" :data="lineData" :options="lineOptions" />
+                    <Chart :type="chartData.chartType" :data="lineData" :options="lineOptions" />
                 </div>
             </div>
 
@@ -98,7 +100,7 @@
                         :scrollable="true"
                         scrollHeight="400px"
                         :loading="loading">
-                        <Column field="label" header="Name" style="min-width: 200px"></Column>
+                        <Column field="label" header="label" style="min-width: 200px"></Column>
                         <Column
                             field="backgroundColor"
                             header="backgroundColor"
@@ -123,13 +125,21 @@ export default {
     },
     data() {
         return {
-            chartTitle: '',
+            fields: ['name', 'number', 'date'],
+
+            // 여러 차트가 객체 배열로 저장될 장소
             chartDatas: [],
 
-            chartName: [],
-            chartType: [],
+            // 하나의 차트에 필요한 데이터
+            chartData: {
+                title: '',
+                // chartType: 'line',
+                chartType: 'bar',
+                rowData: '',
+                columnData: null,
+                value: null,
+            },
 
-            fields: ['name', 'number', 'date'],
             rowData: null,
             columnData: null,
             value: null,
