@@ -8,10 +8,14 @@
             <div class="flex justify-between mb-4">
                 <div>
                     <label for="field-title">통계 이름:</label>
-                    <input type="text" id="field-title" v-model="chartData.title" />
+                    <input type="text" id="field-title" v-model="title" />
                 </div>
 
-                <button>저장</button>
+                <button
+                    type="button"
+                    class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    저장
+                </button>
             </div>
 
             <div class="flex gap-4">
@@ -89,27 +93,46 @@
             <div class="p-4">
                 <div class="card">
                     <h5>Linear Chart</h5>
-                    <Chart :type="chartData.chartType" :data="lineData" :options="lineOptions" />
+                    <Chart :type="chartType" :data="sampleData" :options="options" />
+                    <Chart :type="chartType" :data="sampleData2" />
                 </div>
             </div>
 
             <div class="p-4">
                 <div class="card">
                     <DataTable
-                        :value="lineData.datasets"
+                        :value="sampleData.datasets"
                         :scrollable="true"
                         scrollHeight="400px"
                         :loading="loading">
                         <Column field="label" header="label" style="min-width: 200px"></Column>
                         <Column
-                            field="backgroundColor"
-                            header="backgroundColor"
+                            field="total"
+                            header="value"
+                            style="min-width: 200px"></Column>
+                    </DataTable>
+                </div>
+                <div class="card">
+                    <DataTable
+                        :value="sampleData2.datasets"
+                        :scrollable="true"
+                        scrollHeight="400px"
+                        :loading="loading">
+                        <Column field="label" header="label" style="min-width: 200px"></Column>
+                        <Column
+                            field="total"
+                            header="value"
                             style="min-width: 200px"></Column>
                     </DataTable>
                 </div>
             </div>
         </div>
     </div>
+    <pre class="p-4">
+        요약
+        3. 차트가 어떤식으로 그려지는지 샘플을 이용해 구현하며 확인 (프라임 뷰 차트 추가)
+        4. 표(데이터 테이블)이 어떤식으로 그려지는지 샘플을 이용해 구현하며 확인 (프라임뷰 DataTable, Column 추가)
+        </pre>
 </template>
 
 <script>
@@ -125,26 +148,46 @@ export default {
     },
     data() {
         return {
+            // 필드 샘플
             fields: ['name', 'number', 'date'],
 
-            // 여러 차트가 객체 배열로 저장될 장소
-            chartDatas: [],
-
-            // 하나의 차트에 필요한 데이터
-            chartData: {
-                title: '',
-                // chartType: 'line',
-                chartType: 'bar',
-                rowData: '',
-                columnData: null,
-                value: null,
-            },
-
+            // 새롭게 그려질 차트에 대한 정보들
+            title: '',
+            chartType: 'bar',
             rowData: null,
             columnData: null,
             value: null,
 
-            lineData: {
+            // 최종적으로 만들어질 차트 데이터들의 모습 (샘플))
+            sampleData: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [
+                    {
+                        label: 'Sales',
+                        data: [12, 19, 3, 5, 2],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        total: 41
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Monthly Sales',
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        },
+                    ],
+                },
+            },
+            sampleData2: {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                     {
@@ -154,6 +197,7 @@ export default {
                         backgroundColor: '#2f4860',
                         borderColor: '#2f4860',
                         tension: 0.4,
+                        total: 436
                     },
                     {
                         label: 'Second Dataset',
@@ -162,13 +206,12 @@ export default {
                         backgroundColor: '#00bb7e',
                         borderColor: '#00bb7e',
                         tension: 0.4,
+                        total: 578
                     },
                 ],
             },
-            lineOptions: null,
         };
     },
-    computed: {},
     methods: {
         handleDragStart(event) {
             event.dataTransfer.setData('field', event.target.innerText);

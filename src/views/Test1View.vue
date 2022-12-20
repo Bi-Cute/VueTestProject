@@ -78,6 +78,12 @@
             </div>
         </div>
     </div>
+    <!-- Memo -->
+    <pre class="p-4">
+        요약
+        1. 필드 데이터를 배열(fields)로 만든 후 v-for를 이용해서 필드 개수만큼 박스를 생성
+        2. 드래그 & 드롭 이벤트를 이용해서 선택한 필드 데이터를 row, col, val의 값으로 지정
+        </pre>
 </template>
 
 <script>
@@ -90,9 +96,6 @@ export default {
             rowData: null,
             columnData: null,
             value: null,
-
-            chartDatas: [],
-            chartType: '',
         };
     },
     computed: {},
