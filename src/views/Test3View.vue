@@ -93,7 +93,7 @@
             <div class="p-4">
                 <div class="card">
                     <h5>Linear Chart</h5>
-                    <Chart :type="chartType" :data="ChartDataset" :options="options" />
+                    <Chart :type="chartType" :data="ChartDataset" />
                     <!-- <Chart :type="chartType" :data="sampleData2" /> -->
                 </div>
             </div>
@@ -133,14 +133,14 @@
         "열(column)"은 = ①datasets의 ②오브젝트에 ③label로 지정
         "값(value)"은 ①datasets의 data의 값을 모두 더한 값으로 ②total을 생성하여 지정
         "행(row)"은 무시한다
-        </pre>
+        </pre
+    >
 </template>
 
 <script>
 import Chart from 'primevue/chart';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import ChartDataset from './JSON/ChartDataset3.json';
 
 export default {
     components: {
@@ -152,6 +152,36 @@ export default {
         return {
             // 필드 샘플
             fields: ['name', 'number', 'date'],
+            // 더미 데이터
+            ChartDataset: {
+                labels: ['2022-12-16', '2022-12-12', '2022-12-09', '2022-12-07', '2022-12-01'],
+                datasets: [
+                    {
+                        data: ['1', '3', '1', '3', '1'],
+                        backgroundColor: '#ffba00',
+                        label: '검토중',
+                        total: 9,
+                    },
+                    {
+                        data: ['0', '2', '0', '0', '1'],
+                        backgroundColor: '#f57c00',
+                        label: '재작업 요청',
+                        total: 3,
+                    },
+                    {
+                        data: ['0', '0', '3', '0', '0'],
+                        backgroundColor: '#5d4037',
+                        label: '재작업 완료',
+                        total: 3,
+                    },
+                    {
+                        data: ['2', '0', '0', '1', '1'],
+                        backgroundColor: '#247aff',
+                        label: '완료',
+                        total: 4,
+                    },
+                ],
+            },
 
             // 새롭게 그려질 차트에 대한 정보들
             title: '',
@@ -159,24 +189,6 @@ export default {
             rowData: null,
             columnData: null,
             value: null,
-
-            ChartDataset: ChartDataset,
-
-            options: {
-                title: {
-                    display: true,
-                    text: 'Monthly Sales',
-                },
-                scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                            },
-                        },
-                    ],
-                },
-            },
         };
     },
     methods: {
