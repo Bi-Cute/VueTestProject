@@ -1,0 +1,62 @@
+             this.fields.findIndex((field)=>{
+                  if(chart.row == field.uuid) {
+                    chartData.rowName = field.label
+                  }
+                  if (chart.column == field.uuid){
+                    chartData.colName = field.label
+                  }
+                  if (chart.value == field.uuid) {
+                    chartData.valName = field.label
+                  }
+                })
+                let headerObject = {
+                  rowName: chartData.rowName,
+                  colName: chartData.colName,
+                  valName: chartData.valName + ': 개수'
+                };
+                this.chartHeader.push(headerObject)
+
+
+
+
+
+                if (chart.column && chart.value && !chart.row) {
+                    const transformedData4 = {
+                        no: chart.no,
+                        title: chart.name,
+                        labels: chart.data.map(item => item.col),
+                        datasets: Object.keys(chart.data[0])
+                            .filter(key => key !== 'col')
+                            .map(key => ({
+                                data: chart.data.map(item => item[key]),
+                                label: key,
+                                total: chart.data.reduce((acc, item) => acc + parseInt(item[key]), 0),
+                            })),
+                    };
+    
+                    this.customDataTable.push(transformedData4)
+                    console.log("🚀 ~  ~ transformedData4", transformedData4);
+                }
+
+
+
+
+
+
+                if (chart.column && chart.value && !chart.row) {
+                    const transformedData = {
+                          no: chart.no,
+                          title: chart.name,
+                          labels: chart.data.map(item => item.col),
+                          datasets: chart.data.map(item => {
+                            return {
+                              data: [item.val],
+                              label: item.col,
+                              total: parseInt(item.val)
+                            }
+                          })
+                        };
+      
+                        this.customStatistics.push(transformedData)
+                      console.log("🚀 ~  ~ transformedData", transformedData);
+                  }

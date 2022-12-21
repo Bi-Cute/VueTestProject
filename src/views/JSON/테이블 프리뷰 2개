@@ -1,0 +1,8 @@
+const OBJ = [ { "col": "bd2", "val": "2" }, { "col": "ZENN", "val": "5" } ]
+
+I want to change the above object like below
+
+[
+     { "data": [ "2" ], "label": "bd2", "total": 2 }, 
+     { "data": [ "5" ], "label": "ZENN", "total": 5 }, 
+]

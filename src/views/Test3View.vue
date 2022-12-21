@@ -100,6 +100,7 @@
 
             <div class="p-4">
                 <div class="card">
+                    {{ ChartDataset.datasets }}
                     <DataTable
                         :value="ChartDataset.datasets"
                         :scrollable="true"
