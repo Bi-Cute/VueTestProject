@@ -28,8 +28,7 @@ if (this.columnLabel && this.valueLabel && this.rowLabel) {
 
 
 
-
-{
+let OBJ = {
     "labels": [ "MIKU", "ZENN" ],
     "datasets": [
         { "data": [ "0", "1" ], "label": "A", "total": 1 },

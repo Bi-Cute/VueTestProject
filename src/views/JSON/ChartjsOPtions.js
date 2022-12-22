@@ -532,4 +532,4 @@ let options6 = {
 			position: 'left',
 		},
 	},
-},
+};
