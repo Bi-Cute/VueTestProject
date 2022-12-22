@@ -104,8 +104,7 @@
                     <DataTable
                         :value="ChartDataset.datasets"
                         :scrollable="true"
-                        scrollHeight="400px"
-                        :loading="loading">
+                        scrollHeight="400px">
                         <Column field="label" header="label" style="min-width: 200px"></Column>
                         <Column field="total" header="Total" style="min-width: 200px"></Column>
                     </DataTable>

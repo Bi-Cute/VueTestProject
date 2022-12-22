@@ -11,6 +11,7 @@
     "@headlessui/vue": "^1.7.7",
     "@heroicons/vue": "^2.0.13",
     "chart.js": "^4.1.1",
+    "chartjs-plugin-zoom": "^2.0.0",
     "pinia": "^2.0.28",
     "primevue": "^3.21.0",
     "vue": "^3.2.45",

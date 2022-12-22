@@ -91,19 +91,17 @@
             <div class="p-4">
                 <div class="card">
                     <h5>Linear Chart</h5>
-                    <Chart :type="chartType" :data="ChartDataset" :options="options" />
+                    <Chart :type="chartType" :data="chartData3" :options="options" />
                     <!-- <Chart :type="chartType" :data="sampleData2" /> -->
                 </div>
             </div>
 
             <div class="p-4">
                 <div class="card">
-                    {{ ChartDataset.datasets }}
                     <DataTable
-                        :value="ChartDataset.datasets"
+                        :value="chartData3.datasets"
                         :scrollable="true"
-                        scrollHeight="400px"
-                        :loading="loading">
+                        scrollHeight="400px">
                         <Column field="label" header="label" style="min-width: 200px"></Column>
                         <Column field="total" header="Total" style="min-width: 200px"></Column>
                     </DataTable>
@@ -113,31 +111,18 @@
     </div>
     <pre class="p-4">
         요약
-        5. 실제 데이터를 샘플 형식으로 변환하여 적용하면 끝.
-
-        6. 차트: 열(필수) / 값(필수) / 행
-        열(column) - y축 - 필수
-        열은 라벨이 담긴다.
-
-        값(value) - 필수
-        해당 열에 대한 값이 담긴다
-
-        행(row) - x축
-        해당 열에 몇개가 함께 들어갈것인지.
-        이 개수만큼 datasets에 오브젝트 형태로 추가한다
-
-        7. 데이터 테이블: 열(필수) / 값(필수) / 행
-        차트전용 값을 위해
-        "열(column)"은 = ①datasets의 ②오브젝트에 ③label로 지정
-        "값(value)"은 ①datasets의 data의 값을 모두 더한 값으로 ②total을 생성하여 지정
-        "행(row)"은 무시한다
-        </pre>
+        
+        </pre
+    >
 </template>
 
 <script>
 import Chart from 'primevue/chart';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+// import zoomPlugin from 'chartjs-plugin-zoom';
+
+// Chart.register(zoomPlugin);
 
 export default {
     components: {
@@ -157,21 +142,38 @@ export default {
             columnData: null,
             value: null,
 
-            ChartDataset: ChartDataset,
+            chartData3: {
+                labels: ['MIKU', 'ZENN'],
+                datasets: [
+                    { data: ['0', '1'], label: 'A', total: 1 },
+                    { data: ['2', '3'], label: 'B', total: 5 },
+                    { data: ['0', '1'], label: 'C', total: 1 },
+                ],
+            },
 
             options: {
                 title: {
                     display: true,
                     text: 'Monthly Sales',
                 },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                },
                 scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                            },
+                    x: {
+                        type: 'category',
+                        min: 5,
+                        max: 11,
+                        ticks: {
+                            minRotation: 0,
+                            maxRotation: 0,
+                            autoSkip: true,
+                            autoSkipPadding: 3,
                         },
-                    ],
+                    },
                 },
             },
         };
