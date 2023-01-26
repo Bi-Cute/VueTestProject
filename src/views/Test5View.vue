@@ -1,6 +1,7 @@
 <template>
     <div>
-        더하기
+        Chart.js
+        <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
     </div>
 </template>
 

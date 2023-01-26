@@ -27,7 +27,7 @@ if (this.columnLabel && this.valueLabel && !this.rowLabel) {
 }
 
 
-
+// 차트로 변환 결ㅏ
 {
     "labels": [ "MIKU", "ZENN" ],
     "datasets": [
@@ -36,3 +36,8 @@ if (this.columnLabel && this.valueLabel && !this.rowLabel) {
     ]
 }
 
+
+// 테이블로 변환 결과
+[ 
+    { "data": [ "10" ], "label": "DUCK", "total": 10 } 
+]
